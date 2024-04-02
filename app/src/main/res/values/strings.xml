@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Chant Hare Krishna</string>
+    <string name="hare_krishna_maha_mantra">Hare Krishna\nHare Krishna\nKrishna Krishna\nHare Hare\nHare Rama\nHare Rama\nRama Rama\nHare Hare</string>
+    <string name="title_activity_history">HistoryActivity</string>
+</resources>
