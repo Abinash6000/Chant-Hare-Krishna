@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
@@ -123,7 +124,7 @@ fun ChantHareKrishna() {
             painter = painterResource(id = R.drawable.caitanyanitai), contentDescription = "",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
-            alpha = 0.50f
+            alpha = 0.60f
         )
         IconButton(
             onClick = {
@@ -137,6 +138,19 @@ fun ChantHareKrishna() {
             Image(painter = painterResource(id = R.drawable.ic_history_edu), contentDescription = "History"
             ,modifier = Modifier.width(64.dp).height(64.dp))
         }
+        IconButton(
+            onClick = {
+                val intent = Intent(context, FocusChantActivity::class.java)
+                context.startActivity(intent)
+            },
+            Modifier
+                .width(108.dp)
+                .height(108.dp)
+                .align(Alignment.TopEnd)
+                .padding(4.dp, 32.dp, 0.dp, 0.dp)
+        ) {
+
+        }
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -144,8 +158,8 @@ fun ChantHareKrishna() {
         ) {
             Text(text = "Hare Krishna\nHare Krishna\nKrishna Krishna\nHare Hare\nHare Rama\nHare Rama\nRama Rama\nHare Hare",
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Cursive,
-                fontSize = 40.sp,
+                fontFamily = FontFamily.Serif,
+                fontSize = 32.sp,
                 textAlign = TextAlign.Center,
                 color = Color(0xff9d0208),
                 lineHeight = 48.sp,
