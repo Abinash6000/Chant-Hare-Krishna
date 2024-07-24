@@ -121,7 +121,7 @@ fun ChantHareKrishna() {
     }
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.caitanyanitai), contentDescription = "",
+            painter = painterResource(id = R.drawable.caitanyanitai_greyscale), contentDescription = "",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
             alpha = 0.60f
@@ -159,7 +159,7 @@ fun ChantHareKrishna() {
                 fontFamily = FontFamily.Serif,
                 fontSize = 32.sp,
                 textAlign = TextAlign.Center,
-                color = Color(0xff9d0208),
+                color = Color(0xff495057),
                 lineHeight = 48.sp,
                 modifier = Modifier.padding(12.dp)
             )
@@ -173,7 +173,7 @@ fun ChantHareKrishna() {
                     fontFamily = FontFamily.Cursive,
                     fontSize = 40.sp,
                     textAlign = TextAlign.Center,
-                    color = Color(0xff6a040f),
+                    color = Color(0xff495057),
                     modifier = Modifier.padding(12.dp)
                 )
                 Text(text = "-",
@@ -181,7 +181,7 @@ fun ChantHareKrishna() {
                     fontFamily = FontFamily.Cursive,
                     fontSize = 40.sp,
                     textAlign = TextAlign.Center,
-                    color = Color(0xff6a040f),
+                    color = Color(0xff495057),
                     modifier = Modifier.padding(12.dp)
                 )
                 Text(text = "$mantraCount",
@@ -189,7 +189,7 @@ fun ChantHareKrishna() {
                 fontFamily = FontFamily.Cursive,
                 fontSize = 40.sp,
                 textAlign = TextAlign.Center,
-                color = Color(0xff6a040f),
+                color = Color(0xff495057),
                 modifier = Modifier.padding(12.dp)
                 )
             }
@@ -208,7 +208,7 @@ fun ChantHareKrishna() {
                     modifier = Modifier
                         .wrapContentSize()
                         .padding(2.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff48c06))
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xff6C757D))
                     ) {
                     Text(text = "R",
                         fontWeight = FontWeight.Bold,
@@ -230,7 +230,7 @@ fun ChantHareKrishna() {
                     modifier = Modifier
                         .wrapContentSize()
                         .padding(2.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff48c06))
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xff6C757D))
                 ) {
                     Text(text = "+",
                         fontWeight = FontWeight.Bold,
@@ -249,7 +249,7 @@ fun ChantHareKrishna() {
                     modifier = Modifier
                         .wrapContentSize()
                         .padding(2.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff48c06))) {
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xff6C757D))) {
                     Text(text = "-",
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp
