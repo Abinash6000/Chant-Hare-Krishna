@@ -148,9 +148,7 @@ fun ChantHareKrishna() {
                 .height(108.dp)
                 .align(Alignment.TopEnd)
                 .padding(4.dp, 32.dp, 0.dp, 0.dp)
-        ) {
-
-        }
+        ) {}
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,

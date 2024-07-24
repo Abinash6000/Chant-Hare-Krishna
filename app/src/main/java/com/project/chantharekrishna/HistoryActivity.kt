@@ -78,7 +78,7 @@ fun HistoryCards(historyData: List<HistoryEntity>) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp, 24.dp, 0.dp, 8.dp),
+                .padding(0.dp, 40.dp, 0.dp, 8.dp),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.Top
         ) {
