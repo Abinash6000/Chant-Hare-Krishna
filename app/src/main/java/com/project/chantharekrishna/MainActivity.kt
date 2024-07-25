@@ -154,45 +154,6 @@ fun ChantHareKrishna() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Hare Krishna\nHare Krishna\nKrishna Krishna\nHare Hare\nHare Rama\nHare Rama\nRama Rama\nHare Hare",
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Serif,
-                fontSize = 32.sp,
-                textAlign = TextAlign.Center,
-                color = Color(0xff495057),
-                lineHeight = 48.sp,
-                modifier = Modifier.padding(12.dp)
-            )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = "$malaCount",
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Cursive,
-                    fontSize = 40.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xff495057),
-                    modifier = Modifier.padding(12.dp)
-                )
-                Text(text = "-",
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Cursive,
-                    fontSize = 40.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xff495057),
-                    modifier = Modifier.padding(12.dp)
-                )
-                Text(text = "$mantraCount",
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Cursive,
-                fontSize = 40.sp,
-                textAlign = TextAlign.Center,
-                color = Color(0xff495057),
-                modifier = Modifier.padding(12.dp)
-                )
-            }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -256,6 +217,47 @@ fun ChantHareKrishna() {
                     )
                 }
             }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "$malaCount",
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Cursive,
+                    fontSize = 40.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xff495057),
+                    modifier = Modifier.padding(12.dp)
+                )
+                Text(text = "-",
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Cursive,
+                    fontSize = 40.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xff495057),
+                    modifier = Modifier.padding(12.dp)
+                )
+                Text(text = "$mantraCount",
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Cursive,
+                    fontSize = 40.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xff495057),
+                    modifier = Modifier.padding(12.dp)
+                )
+            }
+
+            Text(text = "Hare Krishna\nHare Krishna\nKrishna Krishna\nHare Hare\nHare Rama\nHare Rama\nRama Rama\nHare Hare",
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Serif,
+                fontSize = 32.sp,
+                textAlign = TextAlign.Center,
+                color = Color(0xff495057),
+                lineHeight = 48.sp,
+                modifier = Modifier.padding(12.dp)
+            )
         }
     }
 
