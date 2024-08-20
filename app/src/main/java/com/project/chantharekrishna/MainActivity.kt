@@ -8,6 +8,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,7 +21,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -37,11 +43,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -124,7 +135,7 @@ fun ChantHareKrishna() {
             painter = painterResource(id = R.drawable.caitanyanitai_greyscale), contentDescription = "",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
-            alpha = 0.60f
+            alpha = 0.90f
         )
         IconButton(
             onClick = {
@@ -154,6 +165,37 @@ fun ChantHareKrishna() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Row(
+                modifier = Modifier.wrapContentWidth().padding(0.dp, 0.dp, 0.dp, 8.dp).clip(RoundedCornerShape(30.dp)).background(color = Color(0xffadb5bd)),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "$malaCount",
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Cursive,
+                    fontSize = 40.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xff495057),
+                    modifier = Modifier.padding(24.dp, 12.dp)
+                )
+                Text(text = "-",
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Cursive,
+                    fontSize = 40.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xff495057),
+                    modifier = Modifier.padding(12.dp)
+                )
+                Text(text = "$mantraCount",
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Cursive,
+                    fontSize = 40.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xff495057),
+                    modifier = Modifier.padding(24.dp, 12.dp)
+                )
+            }
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -216,37 +258,6 @@ fun ChantHareKrishna() {
                         fontSize = 30.sp
                     )
                 }
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = "$malaCount",
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Cursive,
-                    fontSize = 40.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xff495057),
-                    modifier = Modifier.padding(12.dp)
-                )
-                Text(text = "-",
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Cursive,
-                    fontSize = 40.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xff495057),
-                    modifier = Modifier.padding(12.dp)
-                )
-                Text(text = "$mantraCount",
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Cursive,
-                    fontSize = 40.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xff495057),
-                    modifier = Modifier.padding(12.dp)
-                )
             }
 
             Text(text = "Hare Krishna\nHare Krishna\nKrishna Krishna\nHare Hare\nHare Rama\nHare Rama\nRama Rama\nHare Hare",
