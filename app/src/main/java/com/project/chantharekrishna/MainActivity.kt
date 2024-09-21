@@ -8,11 +8,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,6 +23,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -37,6 +42,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -124,7 +131,21 @@ fun ChantHareKrishna() {
             painter = painterResource(id = R.drawable.caitanyanitai), contentDescription = "",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
-            alpha = 0.90f
+            alpha = 0.80f
+        )
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.3f)
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xfffaa307),
+                        Color.Transparent
+
+                    ),
+                    startY = 70f
+                )
+            )
         )
         IconButton(
             onClick = {
@@ -136,7 +157,9 @@ fun ChantHareKrishna() {
                 .padding(4.dp, 32.dp, 0.dp, 0.dp)
         ) {
             Image(painter = painterResource(id = R.drawable.ic_history_edu), contentDescription = "History"
-            ,modifier = Modifier.width(64.dp).height(64.dp))
+            ,modifier = Modifier
+                    .width(64.dp)
+                    .height(64.dp))
         }
         IconButton(
             onClick = {
@@ -164,7 +187,11 @@ fun ChantHareKrishna() {
                 modifier = Modifier.padding(12.dp)
             )
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .padding(80.dp, 16.dp)
+                    .clip(RoundedCornerShape(30.dp))
+                    .background(color = Color(0xfffaa307)),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -174,7 +201,7 @@ fun ChantHareKrishna() {
                     fontSize = 40.sp,
                     textAlign = TextAlign.Center,
                     color = Color(0xff6a040f),
-                    modifier = Modifier.padding(12.dp)
+                    modifier = Modifier.padding(24.dp, 12.dp, 0.dp,12.dp)
                 )
                 Text(text = "-",
                     fontWeight = FontWeight.Bold,
@@ -190,7 +217,7 @@ fun ChantHareKrishna() {
                 fontSize = 40.sp,
                 textAlign = TextAlign.Center,
                 color = Color(0xff6a040f),
-                modifier = Modifier.padding(12.dp)
+                modifier = Modifier.padding(0.dp, 12.dp, 24.dp,12.dp)
                 )
             }
             Row(
@@ -258,5 +285,4 @@ fun ChantHareKrishna() {
             }
         }
     }
-
 }
