@@ -124,7 +124,7 @@ fun ChantHareKrishna() {
             painter = painterResource(id = R.drawable.caitanyanitai), contentDescription = "",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
-            alpha = 0.60f
+            alpha = 0.90f
         )
         IconButton(
             onClick = {
