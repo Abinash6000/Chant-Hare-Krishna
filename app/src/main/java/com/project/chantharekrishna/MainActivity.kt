@@ -121,6 +121,7 @@ fun ChantHareKrishna() {
             val historyEntity = HistoryEntity(date, malaCount, mantraCount)
 
             // Insert or update the HistoryEntity
+            if(malaCount != 0)
             coroutineScope.launch(Dispatchers.IO) {
                 historyDao.insertOrUpdate(historyEntity)
             }
