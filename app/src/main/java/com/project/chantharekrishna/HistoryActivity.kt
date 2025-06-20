@@ -80,31 +80,29 @@ fun HistoryCards(historyData: List<HistoryEntity>) {
             verticalArrangement = Arrangement.Top
         ) {
             items(historyData) { item ->
-                if(item.malaCount != 0) {
-                    Card(
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xffede7b1),
+                    )
+                ) {
+                    Column(
                         modifier = Modifier
+                            .padding(16.dp)
                             .fillMaxWidth()
-                            .padding(4.dp),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = Color(0xffede7b1),
-                        )
+                            .wrapContentHeight()
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .fillMaxWidth()
-                                .wrapContentHeight()
-                        ) {
-                            Text(
-                                text = "Mala: ${item.malaCount}",
-                                fontWeight = FontWeight.ExtraBold
-                            )
-                            Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Mala: ${item.malaCount}",
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
 //                        Text(text = "Mantra: ${item.mantraCount}", fontWeight = FontWeight.ExtraBold)
 //                        Spacer(modifier = Modifier.height(8.dp))
-                            Text(text = "Date: ${item.date}", fontWeight = FontWeight.ExtraBold)
-                        }
+                        Text(text = "Date: ${item.date}", fontWeight = FontWeight.ExtraBold)
                     }
                 }
             }
