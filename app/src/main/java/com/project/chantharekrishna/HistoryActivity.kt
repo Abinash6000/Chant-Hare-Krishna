@@ -70,7 +70,7 @@ fun HistoryCards(historyData: List<HistoryEntity>) {
             contentDescription = "",
             contentScale = ContentScale.Crop,
             alpha = 0.7f,
-            modifier =  Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         )
         LazyColumn(
             modifier = Modifier
@@ -96,12 +96,10 @@ fun HistoryCards(historyData: List<HistoryEntity>) {
                             .wrapContentHeight()
                     ) {
                         Text(
-                            text = "Mala: ${item.malaCount}",
+                            text = "Mala: ${item.malaCount}.${item.mantraCount}",
                             fontWeight = FontWeight.ExtraBold
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-//                        Text(text = "Mantra: ${item.mantraCount}", fontWeight = FontWeight.ExtraBold)
-//                        Spacer(modifier = Modifier.height(8.dp))
                         Text(text = "Date: ${item.date}", fontWeight = FontWeight.ExtraBold)
                     }
                 }

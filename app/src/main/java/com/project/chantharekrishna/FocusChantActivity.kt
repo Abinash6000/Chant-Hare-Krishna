@@ -58,14 +58,17 @@ fun FocusChantView() {
             contentScale = ContentScale.Crop,
             alpha = 0.8f
         )
-        Text(text = "Hare Krishna\nHare Krishna\nKrishna Krishna\nHare Hare\nHare Rama\nHare Rama\nRama Rama\nHare Hare",
+        Text(
+            text = "Hare Krishna\nHare Krishna\nKrishna Krishna\nHare Hare\nHare Rama\nHare Rama\nRama Rama\nHare Hare",
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
             fontSize = 32.sp,
             textAlign = TextAlign.Center,
             color = Color(0xff9d0208),
             lineHeight = 48.sp,
-            modifier = Modifier.padding(0.dp,108.dp).align(Alignment.TopCenter)
+            modifier = Modifier
+                .padding(0.dp, 108.dp)
+                .align(Alignment.TopCenter)
         )
     }
 }

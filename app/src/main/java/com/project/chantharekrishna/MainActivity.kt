@@ -2,26 +2,20 @@ package com.project.chantharekrishna
 
 import android.content.Intent
 import android.os.Bundle
-import android.service.credentials.Action
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,7 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -45,14 +39,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.chantharekrishna.ui.theme.ChantHareKrishnaTheme
@@ -88,97 +80,81 @@ fun ChantApp() {
     ChantHareKrishna()
 }
 
-@Preview
 @Composable
 fun ChantHareKrishna() {
     val context = LocalContext.current
-    val historyDao = HistoryDatabase.getInstance(context).historyDao()
-    val dataStoreManager = DataStoreManager(context)
-    var data by rememberSaveable { mutableStateOf(Pair("0", "0")) }
+    val historyDao = remember { HistoryDatabase.getInstance(context).historyDao() }
+    val dataStoreManager = remember { DataStoreManager(context) }
+    var malaCount by rememberSaveable { mutableIntStateOf(0) }
+    var mantraCount by rememberSaveable { mutableIntStateOf(0) }
     val coroutineScope = rememberCoroutineScope()
 
-    var malaCount by rememberSaveable {
-        mutableIntStateOf(data.first.toInt())
-    }
-    var mantraCount by rememberSaveable {
-        mutableIntStateOf(data.second.toInt())
-    }
-
-
     LaunchedEffect(key1 = dataStoreManager) {
-        dataStoreManager.getFromDataStore().collect {
-            data = it
-            malaCount = it.first.toInt()
-            mantraCount = it.second.toInt()
+        dataStoreManager.getFromDataStore().collect { (mala, mantra) ->
+            malaCount = mala
+            mantraCount = mantra
 
             val c = Calendar.getInstance()
             val dateTime = c.time
             val sdf = SimpleDateFormat("dd MM yyyy", Locale.getDefault())
-            val dateList = sdf.format(dateTime).split(" ")
-            val date = "${dateList[0]} ${dateList[1]} ${dateList[2]}"
+            val date = sdf.format(dateTime)
 
             // Create a HistoryEntity
             val historyEntity = HistoryEntity(date, malaCount, mantraCount)
 
             // Insert or update the HistoryEntity
-            if(malaCount != 0)
-            coroutineScope.launch(Dispatchers.IO) {
-                historyDao.insertOrUpdate(historyEntity)
+            if (malaCount != 0) {
+                launch(Dispatchers.IO) {
+                    historyDao.insertOrUpdate(historyEntity)
+                }
             }
         }
     }
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.caitanyanitai), contentDescription = "",
+            painter = painterResource(id = R.drawable.caitanyanitai), contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
             alpha = 0.80f
         )
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.3f)
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xfffaa307),
-                        Color.Transparent
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.3f)
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xfffaa307),
+                            Color.Transparent
 
-                    ),
-                    startY = 70f
+                        ),
+                        startY = 70f
+                    )
                 )
-            )
         )
         IconButton(
             onClick = {
                 val intent = Intent(context, HistoryActivity::class.java)
                 context.startActivity(intent)
-                      },
+            },
             Modifier
                 .align(Alignment.TopStart)
                 .padding(4.dp, 32.dp, 0.dp, 0.dp)
         ) {
-            Image(painter = painterResource(id = R.drawable.ic_history_edu), contentDescription = "History"
-            ,modifier = Modifier
-                    .width(64.dp)
-                    .height(64.dp))
+            Icon(
+                painter = painterResource(id = R.drawable.ic_history_edu),
+                contentDescription = "History",
+                modifier = Modifier.size(48.dp),
+                tint = Color(0xff6a040f)
+            )
         }
-        IconButton(
-            onClick = {
-                val intent = Intent(context, FocusChantActivity::class.java)
-                context.startActivity(intent)
-            },
-            Modifier
-                .width(108.dp)
-                .height(108.dp)
-                .align(Alignment.TopEnd)
-                .padding(4.dp, 32.dp, 0.dp, 0.dp)
-        ) {}
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Hare Krishna\nHare Krishna\nKrishna Krishna\nHare Hare\nHare Rama\nHare Rama\nRama Rama\nHare Hare",
+            Text(
+                text = "Hare Krishna\nHare Krishna\nKrishna Krishna\nHare Hare\nHare Rama\nHare Rama\nRama Rama\nHare Hare",
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
                 fontSize = 32.sp,
@@ -196,15 +172,17 @@ fun ChantHareKrishna() {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "$malaCount",
+                Text(
+                    text = "$malaCount",
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Cursive,
                     fontSize = 40.sp,
                     textAlign = TextAlign.Center,
                     color = Color(0xff6a040f),
-                    modifier = Modifier.padding(24.dp, 12.dp, 0.dp,12.dp)
+                    modifier = Modifier.padding(24.dp, 12.dp, 0.dp, 12.dp)
                 )
-                Text(text = "-",
+                Text(
+                    text = "-",
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Cursive,
                     fontSize = 40.sp,
@@ -212,13 +190,14 @@ fun ChantHareKrishna() {
                     color = Color(0xff6a040f),
                     modifier = Modifier.padding(12.dp)
                 )
-                Text(text = "$mantraCount",
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Cursive,
-                fontSize = 40.sp,
-                textAlign = TextAlign.Center,
-                color = Color(0xff6a040f),
-                modifier = Modifier.padding(0.dp, 12.dp, 24.dp,12.dp)
+                Text(
+                    text = "$mantraCount",
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Cursive,
+                    fontSize = 40.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xff6a040f),
+                    modifier = Modifier.padding(0.dp, 12.dp, 24.dp, 12.dp)
                 )
             }
             Row(
@@ -226,59 +205,67 @@ fun ChantHareKrishna() {
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Button(onClick = {
-                    mantraCount = 0
-                    malaCount = 0
-                    coroutineScope.launch {
-                        dataStoreManager.saveToDataStore("0", "0")
-                    }
-                                 },
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .padding(2.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff48c06))
-                    ) {
-                    Text(text = "R",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 30.sp
-                    )
-                }
-                Button(onClick = {
-                    mantraCount++
-                    if(mantraCount == 108) {
+                Button(
+                    onClick = {
                         mantraCount = 0
-                        malaCount++
-                    }
-                    coroutineScope.launch {
-                        val stringMlc = malaCount.toString()
-                        val stringMnc = mantraCount.toString()
-                        dataStoreManager.saveToDataStore(stringMlc, stringMnc)
-                    }
-                                 },
+                        malaCount = 0
+                        coroutineScope.launch {
+                            dataStoreManager.saveToDataStore(0, 0)
+                        }
+                    },
                     modifier = Modifier
                         .wrapContentSize()
                         .padding(2.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff48c06))
                 ) {
-                    Text(text = "+",
+                    Text(
+                        text = "R",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 30.sp
+                    )
+                }
+                Button(
+                    onClick = {
+                        mantraCount++
+                        if (mantraCount == 108) {
+                            mantraCount = 0
+                            malaCount++
+                        }
+                        coroutineScope.launch {
+                            dataStoreManager.saveToDataStore(malaCount, mantraCount)
+                        }
+                    },
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(2.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff48c06))
+                ) {
+                    Text(
+                        text = "+",
                         fontWeight = FontWeight.Bold,
                         fontSize = 40.sp,
                         modifier = Modifier.padding(horizontal = 48.dp, vertical = 64.dp)
                     )
                 }
-                Button(onClick = {
-                    if(mantraCount != 0) mantraCount--
-                    coroutineScope.launch {
-                        val stringMlc = malaCount.toString()
-                        val stringMnc = mantraCount.toString()
-                        dataStoreManager.saveToDataStore(stringMlc, stringMnc)
-                    }
-                                 },
+                Button(
+                    onClick = {
+                        if (mantraCount != 0) {
+                            mantraCount--
+                        } else if (malaCount > 0) {
+                            malaCount--
+                            mantraCount = 107
+                        }
+                        coroutineScope.launch {
+                            dataStoreManager.saveToDataStore(malaCount, mantraCount)
+                        }
+                    },
                     modifier = Modifier
                         .wrapContentSize()
                         .padding(2.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff48c06))) {
-                    Text(text = "-",
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff48c06))
+                ) {
+                    Text(
+                        text = "-",
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp
                     )
