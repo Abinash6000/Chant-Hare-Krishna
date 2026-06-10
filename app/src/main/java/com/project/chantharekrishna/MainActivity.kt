@@ -90,20 +90,23 @@ fun ChantHareKrishna() {
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = dataStoreManager) {
-        dataStoreManager.getFromDataStore().collect { (mala, mantra) ->
-            malaCount = mala
-            mantraCount = mantra
-
-            val c = Calendar.getInstance()
-            val dateTime = c.time
+        dataStoreManager.getFromDataStore().collect { (mala, mantra, storedDate) ->
             val sdf = SimpleDateFormat("dd MM yyyy", Locale.getDefault())
-            val date = sdf.format(dateTime)
+            val currentDate = sdf.format(Calendar.getInstance().time)
 
-            // Create a HistoryEntity
-            val historyEntity = HistoryEntity(date, malaCount, mantraCount)
+            if (storedDate == currentDate) {
+                malaCount = mala
+                mantraCount = mantra
+            } else {
+                malaCount = 0
+                mantraCount = 0
+            }
+
+            // Create a HistoryEntity for the current day
+            val historyEntity = HistoryEntity(currentDate, malaCount, mantraCount)
 
             // Insert or update the HistoryEntity
-            if (malaCount != 0) {
+            if (mantraCount != 0) {
                 launch(Dispatchers.IO) {
                     historyDao.insertOrUpdate(historyEntity)
                 }
@@ -210,7 +213,9 @@ fun ChantHareKrishna() {
                         mantraCount = 0
                         malaCount = 0
                         coroutineScope.launch {
-                            dataStoreManager.saveToDataStore(0, 0)
+                            val sdf = SimpleDateFormat("dd MM yyyy", Locale.getDefault())
+                            val date = sdf.format(Calendar.getInstance().time)
+                            dataStoreManager.saveToDataStore(0, 0, date)
                         }
                     },
                     modifier = Modifier
@@ -232,7 +237,9 @@ fun ChantHareKrishna() {
                             malaCount++
                         }
                         coroutineScope.launch {
-                            dataStoreManager.saveToDataStore(malaCount, mantraCount)
+                            val sdf = SimpleDateFormat("dd MM yyyy", Locale.getDefault())
+                            val date = sdf.format(Calendar.getInstance().time)
+                            dataStoreManager.saveToDataStore(malaCount, mantraCount, date)
                         }
                     },
                     modifier = Modifier
@@ -256,7 +263,9 @@ fun ChantHareKrishna() {
                             mantraCount = 107
                         }
                         coroutineScope.launch {
-                            dataStoreManager.saveToDataStore(malaCount, mantraCount)
+                            val sdf = SimpleDateFormat("dd MM yyyy", Locale.getDefault())
+                            val date = sdf.format(Calendar.getInstance().time)
+                            dataStoreManager.saveToDataStore(malaCount, mantraCount, date)
                         }
                     },
                     modifier = Modifier
